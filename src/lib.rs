@@ -120,7 +120,7 @@ pub fn validate_block_height(height: i64) -> (bool, String) {
             return (false, "Block height cannot be negative".to_string());
         }
         if height > 1_000_000 {
-            return (false, "Block height is too high".to_string());
+            return (false, "unrealistic block height".to_string());
         }
         (true, "Valid block height".to_string())
     
@@ -167,7 +167,16 @@ pub fn create_utxo(
 
 // Implement extract_tx_version function below
 pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
-    
-        Ok(1)
+    if raw_tx_hex.len() < 8 {
+        return Err("Transaction data too short".to_string());
+    }
+    let version_hex = &raw_tx_hex[0..8];
+
+    let bytes = hex::decode(version_hex).map_err(|_| "Hex decode error".to_string())?;
+
+    let mut byte_array = [0u8; 4];
+    byte_array.copy_from_slice(&bytes[0..4]);
+
+    Ok(u32::from_le_bytes(byte_array))
     
 }
