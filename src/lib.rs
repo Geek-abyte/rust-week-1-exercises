@@ -19,33 +19,36 @@ pub fn calculate_total_reward(blocks_mined: u64) -> f64 {
 
 /// Return true if the transaction fee is between 0.00001 and 0.01 BTC.
 pub fn is_valid_tx_fee(fee: f64) -> bool {
-    // TODO: Check if fee is between 0.00001 and 0.01 BTC (inclusive)
     todo!(fee >= 0.00001 && fee <= 0.01)
 }
 
 /// Return true if the wallet balance is greater than 50.0 BTC.
 pub fn is_large_balance(balance: f64) -> bool {
-    // TODO: Compare balance to 50.0 and return result
-    todo!()
+    todo!(balance > 50.0)
 }
 
 /// Return the priority of a transaction ("high", "medium", "low") based on fee rate.
 pub fn tx_priority(size_bytes: u64, fee_btc: f64) -> &'static str {
-    // TODO: Calculate fee rate (fee_btc / size_bytes) and use if/else if/else
     // High: > 0.00005, Medium: > 0.00001, otherwise Low
-    todo!()
+    todo!(let fee_rate = fee_btc / (size_bytes as f64);
+        if fee_rate > 0.00005 {
+            "high"
+        } else if fee_rate > 0.00001 {
+            "medium"
+        } else {
+            "low"
+        }
+    )
 }
 
 /// Return true if the network string equals "mainnet" (case-insensitive).
 pub fn is_mainnet(network: &str) -> bool {
-    // TODO: Convert network to lowercase and compare with "mainnet"
-    todo!()
+    todo!(network.to_lowercase() == "mainnet")
 }
 
 /// Return true if value is in the inclusive range 100..=200.
 pub fn is_in_range(value: i64) -> bool {
-    // TODO: Check if 100 <= value <= 200
-    todo!()
+    todo!(100..=200.contains(&value))
 }
 
 /// Return true if both references point to the exact same object in memory.
@@ -105,10 +108,15 @@ pub fn generate_address(prefix: &str) -> String {
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
 pub fn validate_block_height(height: i64) -> (bool, String) {
-    // TODO: Check that height is not negative
-    // TODO: Check that height is within a realistic range (<= 1_000_000)
-    // TODO: Return (true, "Valid block height") otherwise
-    todo!()
+    todo!(
+        if height < 0 {
+            return (false, "Block height cannot be negative".to_string());
+        }
+        if height > 1_000_000 {
+            return (false, "Block height is too high".to_string());
+        }
+        (true, "Valid block height".to_string())
+    )
 }
 
 /// Compute the block reward (in sats) for each block height based on the halving schedule.
