@@ -53,14 +53,12 @@ pub fn is_in_range(value: i64) -> bool {
 
 /// Return true if both references point to the exact same object in memory.
 pub fn is_same_wallet<T>(wallet1: &T, wallet2: &T) -> bool {
-    // TODO: Use std::ptr::eq to compare reference identity
-    todo!()
+    todo!(std::ptr::eq(wallet1, wallet2))
 }
 
 /// Normalize a Bitcoin address by trimming whitespace and lowercasing.
 pub fn normalize_address(address: &str) -> String {
-    // TODO: Trim leading/trailing whitespace and convert to lowercase
-    todo!()
+    todo!(address.trim().to_lowercase())
 }
 
 /// Append a new UTXO to the list and return the updated list.
@@ -77,8 +75,7 @@ pub fn find_high_fee(fee_list: &[f64]) -> Option<(usize, f64)> {
 
 /// Return basic wallet details as a tuple of (name, balance).
 pub fn get_wallet_details() -> (String, f64) {
-    // TODO: Return a tuple with wallet name and balance
-    todo!()
+    todo!("satoshi_wallet".to_string(), 50.0)
 }
 
 /// Get the status of a transaction from the mempool or "not found".
@@ -91,7 +88,10 @@ pub fn get_tx_status(tx_pool: &HashMap<String, String>, txid: &str) -> String {
 pub fn unpack_wallet_info(wallet_info: (String, f64)) -> String {
     // TODO: Destructure the tuple into (name, balance) and format the result
     // Expected format: "Wallet <name> has balance: <balance> BTC"
-    todo!()
+    todo!(
+        let (name, balance) = wallet_info;
+        format!("Wallet {} has balance: {} BTC", name, balance)
+    )
 }
 
 /// Convert BTC to satoshis (1 BTC = 100,000,000 sats).
@@ -103,7 +103,18 @@ pub fn calculate_sats(btc: f64) -> u64 {
 pub fn generate_address(prefix: &str) -> String {
     // TODO: Build a random suffix of (32 - prefix.len()) chars from [a-z0-9]
     // TODO: Concatenate prefix + suffix and return
-    todo!()
+    todo!(
+        use rand::Rng
+        let mut address = prefix.to_string();
+        let chars: Vec<char> = "abcdefghijklmnopqrstuvwxyz0123456789".chars().collect();
+        let mut rng = rand::thread_rng();
+
+        while address.len() < 32 {
+            let idx = rng.gen_range(0..chars.len());
+            address.push(chars[idx]);
+        }
+        address
+    )
 }
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
